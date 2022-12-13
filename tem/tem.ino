@@ -21,7 +21,7 @@ WiFiClient client;
 
  StaticJsonBuffer<200> jsonBuffer;
  JsonObject& root = jsonBuffer.createObject();
-   int re = client.connect("192.168.133.227", 80);
+   int re = client.connect("192.168.133.227", 3000);
 
 void sonarValue(){
   digitalWrite(trigPin, LOW);
@@ -53,7 +53,7 @@ void setup() {
   pinMode(echoPin, INPUT); // Sets the echoPin as an Input
   s1.attach(0);
   s2.attach(2);
-  WiFi.begin("간절한 임베디드", "1234abcd");
+  WiFi.begin("bssm_free", "bssm_free");
   Serial.print("Connecting");
   while (WiFi.status() != WL_CONNECTED)
   {
@@ -82,7 +82,7 @@ void loop() {
   jsondata = "";
   root["garbageAmount"] = distanceCm;
   root.printTo(jsondata);
-  re = client.connect("192.168.133.227", 80);
+  re = client.connect("192.168.133.227", 3000);
   if (re) {
     client.println("POST /api/sewer/updateSewerInfo/1 HTTP/1.1");
     client.println("Host: 192.168.133.227");
